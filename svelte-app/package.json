@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "prepare": "npm run styles-light && npm run styles-dark",
-    "styles-light": "smui-theme compile static/site.css -i style",
-    "styles-dark": "smui-theme compile static/site-dark.css -i style/dark",
+    "prepare": "npm run smui-theme-light && npm run smui-theme-dark",
+    "smui-theme-light": "smui-theme compile public/smui.css -i src/theme",
+    "smui-theme-dark": "smui-theme compile public/smui-dark.css -i src/theme/dark",
+
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear"
