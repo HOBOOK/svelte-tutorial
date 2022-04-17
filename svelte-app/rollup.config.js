@@ -4,7 +4,8 @@ import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
-import postcss from 'rollup-plugin-postcss';
+import path from "path";
+import alias from "@rollup/plugin-alias";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -48,19 +49,6 @@ export default {
 		// a separate file - better for performance
 		css({ output: 'bundle.css' }),
 
-		postcss({
-			extract: true,
-			minimize: true,
-			use: [
-			  ['sass', {
-				includePaths: [
-				  './theme',
-				  './node_modules'
-				]
-			  }]
-			]
-		}),
-
 		// If you have external dependencies installed from
 		// npm, you'll most likely need these plugins. In
 		// some cases you'll need additional configuration -
@@ -71,6 +59,15 @@ export default {
 			dedupe: ['svelte']
 		}),
 		commonjs(),
+
+		alias({
+		entries: [
+			{
+			find: "~",
+			replacement: path.resolve(__dirname, "src/")
+			}
+		]
+		}),
 
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated
