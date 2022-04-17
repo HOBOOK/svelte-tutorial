@@ -22,14 +22,14 @@
 </svelte:head>
 
 <script>
-	import Router from 'svelte-spa-router'
-  	import routes from '~/routes'
   	import Header from '~/components/Header.svelte'
+	import Main from './Main.svelte'
+
 </script>
 
-<Header />
-<Router {routes} />
 
+<Header />
+<Main />
 
 <style lang="scss">
 	
