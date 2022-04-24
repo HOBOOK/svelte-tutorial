@@ -6,20 +6,15 @@
   </Header>
   <Content>
       <List>
+        {#each routes as route (route.path)}
           <Item 
-             on:click={() => goRoute('/') } activated={$location === '/'} 
+             on:click={() => goRoute(route.path) } activated={$location === route.path} 
           >
-              <Graphic class="material-icons" aria-hidden="true">{$location === '/' ? 'keyboard_arrow_down' : 'keyboard_arrow_right'}</Graphic>
-              <Text>HOME</Text>
+              <Graphic class="material-icons" aria-hidden="true">{$location === route.path ? 'keyboard_arrow_down' : 'keyboard_arrow_right'}</Graphic>
+              <Text>{route.text}</Text>
           </Item>
           <Separator />
-          <Item 
-            on:click={() => goRoute('/about') } activated={$location === '/about'} 
-          >
-              <Graphic class="material-icons" aria-hidden="true">{$location === '/about' ? 'keyboard_arrow_down' : 'keyboard_arrow_right'}</Graphic>
-              <Text>ABOUT</Text>
-          </Item>
-          <Separator />
+        {/each}
       </List>
   </Content>
 </Drawer>
@@ -35,10 +30,16 @@
 
   export let open;
 
-  const setActive = value => {
-      active = value;
-      open = false;
-  };
+  const routes = [{
+    path:'/',
+    text:'HOME'
+  },{
+    path:'/about',
+    text:'ABOUT'
+  },{
+    path:'/user',
+    text:'USER'
+  }];
 
   const goRoute = (route) => {
     push(route)
